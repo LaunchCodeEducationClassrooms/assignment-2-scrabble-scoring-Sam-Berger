@@ -1,7 +1,7 @@
 // inspired by https://exercism.io/tracks/javascript/exercises/etl/solutions/91f99a3cca9548cebe5975d7ebca6a85
 
 const input = require("readline-sync");
-
+let word = ""
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -13,15 +13,15 @@ const oldPointStructure = {
 };
 
 function oldScrabbleScorer(word) {
-	word = word.toUpperCase();
+	let hi = word.toUpperCase();
 	let letterPoints = "";
  
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
  
-		 if (oldPointStructure[pointValue].includes(word[i])) {
-			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+		 if (oldPointStructure[pointValue].includes(hi[i])) {
+			letterPoints += `Points for '${hi[i]}': ${pointValue}\n`
 		 }
  
 	  }
@@ -33,16 +33,46 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+   input.question("Let's play some scrabble! Enter a word:");
 };
 
-let simpleScore;
+let simpleScore = function(word) {
+  return word.length
+};
 
-let vowelBonusScore;
+let vowelBonusScore = function(word) {
+  let high = word.toUpperCase()
+  let score = 0;
+  for (let i=0; i < word.length; i++) {
+    if (high[i] === "A" || high[i] === "E" || high[i] === "I" || high[i] === "O" || high[i] === "U") {
+      score += 3
+    }
+    else {
+      score++
+    }
+  }
+};
 
-let scrabbleScore;
+let scrabbleScore = oldScrabbleScorer;
 
-const scoringAlgorithms = [];
+const scoringAlgorithms = [
+  {
+    name: "Simple Score",
+    description: "Each letter is worth 1 point.",
+    scorerFunction: simpleScore()
+  },
+  {
+    name: "Bonus Vowels",
+    description: "Vowels are 3 pts, consonants are 1 pt.",
+    scorerFunction: vowelBonusScore()
+  },
+  {
+    name: "Scrabble",
+    description: "The traditional scoring algorithm.",
+    scorerFunction: scrabbleScore()
+
+  }
+];
 
 function scorerPrompt() {}
 
