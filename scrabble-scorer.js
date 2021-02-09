@@ -56,7 +56,7 @@ let vowelBonusScore = function(word) {
   return score
 };
 
-let scrabbleScorer = function(word) {
+let scrabbleScore = function(word) {
   word = word.toLowerCase();
 	let score = 0;
   for (let i = 0; i < word.length; i++) {
@@ -79,7 +79,7 @@ const scoringAlgorithms = [
   {
     name: "Scrabble",
     description: "The traditional scoring algorithm.",
-    scorerFunction: scrabbleScorer
+    scorerFunction: scrabbleScore
 
   }
 ];
@@ -116,7 +116,6 @@ function transform(obj) {
 };
 
 let newPointStructure = transform(oldPointStructure);
-console.log(newPointStructure)
 function runProgram() {
    initialPrompt();
    scorerPrompt();
@@ -131,7 +130,7 @@ module.exports = {
    oldPointStructure: oldPointStructure,
    simpleScore: simpleScore,
    vowelBonusScore: vowelBonusScore,
-   scrabbleScorer: scrabbleScorer,
+   scrabbleScore: scrabbleScore,
    scoringAlgorithms: scoringAlgorithms,
    newPointStructure: newPointStructure,
 	runProgram: runProgram,
